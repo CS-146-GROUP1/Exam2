@@ -1,0 +1,11 @@
+import java.util.*;
+public class BinaryTree<Anytyp> 
+{
+	ArrayList<Anytype> listToInput;
+	class Node
+	{
+		Anytype data;
+		Nnde left;
+		Node right;
+	}
+}

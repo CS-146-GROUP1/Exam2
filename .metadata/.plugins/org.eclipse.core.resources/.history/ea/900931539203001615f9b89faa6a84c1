@@ -1,0 +1,10 @@
+
+public class MergeLeftSort<Anytype> 
+{
+	class Node
+	{
+		Anytype data;
+		Node left;
+		Node right;
+	}
+}

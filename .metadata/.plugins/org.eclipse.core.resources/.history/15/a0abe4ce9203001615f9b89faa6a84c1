@@ -1,0 +1,26 @@
+
+public class MergeLeftSort<Anytype> 
+{
+	class Node
+	{
+		Anytype data;
+		Node left;
+		Node right;
+		
+		public Node()
+		{
+			data = null;
+		}
+		
+		public Node(Anytype value)
+		{
+			data = value;
+		}
+	}
+	
+	Node dummy;
+	static Node merge(Node u, Node v)
+	{
+		dummy = u
+	}
+}

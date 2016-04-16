@@ -1,0 +1,9 @@
+
+public class MergeLeftSort 
+{
+	class Node
+	{
+		Anytype data;
+		
+	}
+}

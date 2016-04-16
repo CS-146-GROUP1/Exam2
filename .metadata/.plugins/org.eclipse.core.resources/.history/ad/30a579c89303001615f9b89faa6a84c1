@@ -1,0 +1,43 @@
+
+public class PartB<Anytype> 
+{
+	class Node
+	{
+		Anytype data;
+		Node left;
+		Node right;
+		
+		public Node()
+		{
+			data = null;
+		}
+		
+		public Node(Anytype value)
+		{
+			data = value;
+		}
+	}
+	
+	static Node merge(Node u, Node v)
+	{
+		Node dummy;
+		dummy = u;
+		u = v;
+		v = dummy;
+		
+		if (u.data > v.data)
+		{
+			dummy = u;
+			u = v;
+		    v = dummy;
+		}
+		
+		if (u.right == null)
+		{
+			  u.right = v;
+			    else // Merge recursively
+			      u.right = merge(u.right, v);
+
+		}
+	}
+}
