@@ -1,0 +1,52 @@
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class PartBTest 
+{
+	/**
+	 * This is our test case for part b for number 2. 
+	 * In this case we are trying to generate the best left heap with the help of a local leftist Heap variable.
+	 */
+	TreePrinter myLeftistHeap = new TreePrinter();
+
+	@Test
+	public void test() 
+	{		
+		// Inputed into the tree statically
+		int[] input = {
+				4,
+				8,
+				10,
+				9,
+				1,
+				3,
+				5,
+				6,
+				11
+		};
+
+		// input into array
+		for(int i = 0; i < input.length; i++)
+		{
+			myLeftistHeap.insert(input[i]);
+		}
+		
+		myLeftistHeap.PrintTree();
+	
+	}
+	
+	public void test2()
+	{
+		System.out.println("This is the initial empty tree");
+		myLeftistHeap.PrintTree();
+		int[] input = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+		
+		for(int i = 0; i < input.length; i++)
+		{
+			myLeftistHeap.insert(input[i]);
+		}		
+		myLeftistHeap.PrintTree();
+		System.out.println("The new tree");
+	}
+	
+}

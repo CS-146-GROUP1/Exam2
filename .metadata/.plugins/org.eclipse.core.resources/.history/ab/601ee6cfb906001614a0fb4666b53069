@@ -1,0 +1,126 @@
+import java.util.*;
+import java.math.*;
+/**
+ * 
+ * @author Adish Betawar
+ *
+ */
+
+/**
+ * This is for Problem #1 on Homework 2
+ */
+public class TreePrinter<Anytype> extends BinarySearchTree
+{	
+	/**
+	 * prints whole tree
+	 */
+	public void PrintTree()
+	{
+		if (isEmpty() == true)
+		{
+			System.out.println("Tree is empty");
+			return;
+		}
+		int maxLevel = this.height(root); // the bottom most leaf
+		// printing out entire tree from this marker
+		PrintNodeList(Collections.singletonList(root),1, maxLevel); 
+	}
+	
+	/**
+	 * prints out a list of Nodes for a given level/floor
+	 * @param e
+	 */
+	public void PrintNodeList(List<Node> nodeList, int curLevel, int maxLevel)
+	{
+		if(nodeList.isEmpty() || isAllElementsNull(nodeList))
+		{
+			return;
+		}
+		
+		int floor = maxLevel - curLevel; // minimum and maximum leaf nodes
+		int edgeLines = (int)Math.pow(2, (Math.max(floor - 1, 0))); // '/' '\' when viewing the hiearachical order of the Nodes
+		int firstSpaces = (int) Math.pow(2, floor) - 1; // initial spaces before printing out a node
+		int betweenSpaces = (int) Math.pow(2, floor+1) - 1; // the spacing printed out between nodes
+		
+		// printing out the beggining spaces
+		TreePrinter.printWhitespaces(firstSpaces);
+		
+		// creating list of nodes to print
+		List<Node> nextNodes = new ArrayList<Node>();
+		for (Node currentNode : nodeList) 
+		{
+			if (currentNode != null) 
+			{
+				System.out.print(currentNode.data);
+				nextNodes.add(currentNode.left);
+				nextNodes.add(currentNode.right);
+			}
+			else
+			{
+				nextNodes.add(null);	
+				nextNodes.add(null);
+				System.out.print(" ");
+			}
+
+			TreePrinter.printWhitespaces(betweenSpaces);
+		}
+		System.out.println("");
+		// printing out the edges '/' and '\' accordingly to generate a true tree like structure
+		for (int i = 1; i <= edgeLines; i++) 
+		{
+			for (int j = 0; j < nodeList.size(); j++) 
+			{
+				TreePrinter.printWhitespaces(firstSpaces - i);
+				if (nodeList.get(j) == null) 
+				{
+					TreePrinter.printWhitespaces(edgeLines + edgeLines + i + 1);
+					continue;
+				}
+
+				if (nodeList.get(j).left != null)
+					System.out.print("/");
+				else
+					TreePrinter.printWhitespaces(1);
+
+				TreePrinter.printWhitespaces(i + i - 1);
+
+				if (nodeList.get(j).right != null)
+					System.out.print(" \\");
+				else
+					TreePrinter.printWhitespaces(1);
+
+				TreePrinter.printWhitespaces(edgeLines + edgeLines - i);
+			}
+
+			System.out.println("");
+		}
+
+		PrintNodeList(nextNodes, curLevel + 1, maxLevel);
+	}
+	
+	/**
+	 * prints blank spaces as long as we want
+	 * because we are cool like that
+	 * @param firstSpaces
+	 */
+	private static void printWhitespaces(int firstSpaces) 
+	{
+		for (int i = 0; i < firstSpaces; i++)
+		{
+			System.out.print(" ");
+		}
+	}	
+	
+	
+    private boolean isAllElementsNull(List<Node> list) 
+    {
+        for (Object object : list)
+        {
+            if (object != null)
+                return false;
+        }
+        return true;
+    }
+
+
+}

@@ -1,0 +1,112 @@
+import java.math.*;
+public class PartB
+{
+	public Node root;
+	class Node
+	{
+		int data;
+		Node left;
+		Node right;
+		
+		public Node()
+		{
+			data = 0;
+		}
+		
+		public Node(int value)
+		{
+			data = value;
+		}
+	}
+
+	
+	public boolean isEmpty()
+	{
+		if(root != null)
+			return false;
+		return true;
+	}
+
+	public int height(Node targetNode)
+	{
+		// check the target Node location
+		if(targetNode == null)
+			return 0;
+		
+		int leftHeight = height(targetNode.left);
+		int rightHeight = height(targetNode.right);
+		
+		if(leftHeight >= rightHeight)
+		{
+			return leftHeight + 1;
+		}
+		return rightHeight + 1;
+	}
+
+	public static Node merge(Node u, Node v)
+	{
+		// swapping data from u to v
+		Node dummy;
+		dummy = u;
+		u = v;
+		v = dummy;
+		
+		if (u.data > v.data)
+		{
+	    	// swapping left and right for bigger node, which should be placed on the right
+			dummy = u;
+			u = v;
+		    v = dummy;
+		}
+		
+		if (u.right == null)
+		{
+			  u.right = v;
+		}
+	    else // Merging recursively
+		      u.right = merge(u.right, v);
+		// Conditionally swap children of u
+	    if (u.left == null || u.right.data > u.left.data)
+	    {
+	    	// swapping right and left for smaller node, which should be placed on the left
+	      dummy = u.right; 
+	      u.right = u.left;
+	      u.left = dummy; 
+	    }
+	    // Update data values
+	    if (u.right == null)
+	      u.data = 0;
+	    else
+	      u.data = Math.min(u.left.data, u.right.data);
+	    return u;
+	}
+		
+	
+	public void insert(int key)
+	{
+		if (root == null)
+			root = new Node(key);
+		else
+			root = merge(root, new Node(key));
+
+	}
+
+	public int deleteMin()
+	  {
+	    if (root == null)
+	    {
+	      System.out.println("EMPTY HEAP !!!");
+	      return Integer.MAX_VALUE;
+	    }
+	    else
+	    {
+	      int x = root.data;
+	      if (root.right == null) // Also covers case of single node
+	        root = root.left;
+	      else
+	        root = merge(root.left, root.right);
+	      return x;
+	    }
+
+	  }
+}

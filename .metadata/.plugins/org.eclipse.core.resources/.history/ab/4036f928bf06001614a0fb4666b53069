@@ -1,0 +1,110 @@
+import java.math.*;
+public class PartB
+{
+	public Node root;
+	class Node
+	{
+		int data;
+		Node left;
+		Node right;
+		int s_value = 0;
+		
+		public Node()
+		{
+			data = 0;
+		}
+		
+		public Node(int value)
+		{
+			data = value;
+		}
+	}
+	
+	public boolean isEmpty()
+	{
+		if(root != null)
+			return false;
+		return true;
+	}
+
+	public int height(Node targetNode)
+	{
+		// check the target Node location
+		if(targetNode == null)
+			return 0;
+		
+		int leftHeight = height(targetNode.left);
+		int rightHeight = height(targetNode.right);
+		
+		if(leftHeight >= rightHeight)
+		{
+			return leftHeight + 1;
+		}
+		return rightHeight + 1;
+	}
+
+	public static Node merge(Node x, Node y)
+	{
+		if(x == null)
+			return y;
+		if(y == null)
+			return x;
+		
+		if(x.data > y.data)
+		{
+			// x data is greater than y
+			Node temp = x;
+			x = y;
+			y = temp;
+		}
+		
+		x.right = merge(x.right, y);
+		if (x.left == null)
+		{
+			x.left = x.right;
+			x.right = null;
+		}
+		else
+		{
+			if (x.left.s_value < x.right.s_value)
+			{
+				// x data is smaller than y data
+				Node temp = x.left;
+				x.left = x.right;
+				x.right = temp;
+			}
+			
+			x.s_value = x.right.s_value + 1;
+		}
+		return x;		
+	}
+		
+	
+	public void insert(int key)
+	{
+		if (root == null)
+			root = new Node(key);
+		else
+			root = merge(root, new Node(key));
+
+	}
+
+	public int deleteMin()
+	  {
+	    if (root == null)
+	    {
+	      System.out.println("EMPTY HEAP !!!");
+	      return Integer.MAX_VALUE;
+	    }
+	    else
+	    {
+	      int x = root.data;
+	      if (root.right == null) // Also covers case of single node
+	        root = root.left;
+	      else
+	        root = merge(root.left, root.right);
+	      return x;
+	    }
+
+	  }
+}

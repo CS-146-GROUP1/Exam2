@@ -1,12 +1,13 @@
 import java.math.*;
 public class PartB
 {
-	Node root;
+	public Node root;
 	class Node
 	{
 		int data;
 		Node left;
 		Node right;
+		int s_value = 0;
 		
 		public Node()
 		{
@@ -18,43 +19,66 @@ public class PartB
 			data = value;
 		}
 	}
-
-	public static Node merge(Node u, Node v)
+	
+	public boolean isEmpty()
 	{
-		// swapping data from u to v
-		Node dummy;
-		dummy = u;
-		u = v;
-		v = dummy;
+		if(root != null)
+			return false;
+		return true;
+	}
+
+	public int height(Node targetNode)
+	{
+		// check the target Node location
+		if(targetNode == null)
+			return 0;
 		
-		if (u.data > v.data)
+		int leftHeight = height(targetNode.left);
+		int rightHeight = height(targetNode.right);
+		
+		if(leftHeight >= rightHeight)
 		{
-	    	// swapping left and right for bigger node, which should be placed on the right
-			dummy = u;
-			u = v;
-		    v = dummy;
+			return leftHeight + 1;
+		}
+		return rightHeight + 1;
+	}
+
+	public static Node merge(Node x, Node y)
+	{
+		if(x == null)
+			return y;
+		if(y == null)
+			return x;
+		
+		if(x.data > y.data)
+		{
+			// x data is greater than y data
+			Node temp = x;
+			x = y;
+			y = temp;
 		}
 		
-		if (u.right == null)
+		x.right = merge(x.right, y);
+		if (x.left == null)
 		{
-			  u.right = v;
+			// left chid doesnt exist and so we move the right child to the left side
+			x.left = x.right;
+			x.right = null;
 		}
-	    else // Merging recursively
-		      u.right = merge(u.right, v);
-		// Conditionally swap children of u
-	    if (u.left == null || u.right.data > u.left.data)
-	    {
-	    	// swapping right and left for smaller node, which should be placed on the left
-	      dummy = u.right; 
-	      u.right = u.left;
-	      u.left = dummy; 
-	    }
-	    // Update data values
-	    if (u.right == null)
-	      u.data = 0;
-	    else
-	      u.data = Math.min(u.left.data, u.right.data);
-	    return u;
+		else
+		{
+			// the left child does exist and show we compare the s_values
+			if (x.left.s_value < x.right.s_value)
+			{
+				// x data is smaller than y data
+				Node temp = x.left;
+				x.left = x.right;
+				x.right = temp;
+			}
+			// update the s_values
+			x.s_value = x.right.s_value + 1;
+		}
+		return x;		
 	}
 		
 	

@@ -1,0 +1,26 @@
+import static org.junit.Assert.*;
+import java.util.*;
+import org.junit.Test;
+
+public class PartBTest 
+{
+	/**
+	 * This is our test case for part b for number 2. 
+	 * In this case we are trying to generate the best left heap with the help of a local leftist Heap variable.
+	 */
+	PartB myLeftistHeap = new PartB();
+
+	@Test
+	public void test() 
+	{
+		int[] input = {
+				
+		}; 
+		myLeftistHeap.insert(5);
+		myLeftistHeap.insert(4);
+		myLeftistHeap.insert(3);
+		myLeftistHeap.insert(2);
+		myLeftistHeap.insert(1);
+	}
+
+}
