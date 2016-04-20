@@ -1,0 +1,85 @@
+import java.math.*;
+public class PartB
+{
+	Node root;
+	class Node
+	{
+		int data;
+		Node left;
+		Node right;
+		
+		public Node()
+		{
+			data = 0;
+		}
+		
+		public Node(int value)
+		{
+			data = value;
+		}
+	}
+
+	static Node merge(Node u, Node v)
+	{
+		Node dummy;
+		dummy = u;
+		u = v;
+		v = dummy;
+		
+		if (u.data > v.data)
+		{
+			dummy = u;
+			u = v;
+		    v = dummy;
+		}
+		
+		if (u.right == null)
+		{
+			  u.right = v;
+		}
+	    else // Merge recursively
+		      u.right = merge(u.right, v);
+		// Conditionally swap children of u
+	    if (u.left == null || u.right.data > u.left.data)
+	    {
+	      dummy = u.right; 
+	      u.right = u.left;
+	      u.left = dummy; 
+	    }
+	    // Update data values
+	    if (u.right == null)
+	      u.data = 0;
+	    else
+	      u.data = Math.min(u.left.data, u.right.data)(u.left.data, u.right.data) + 1;
+	}
+		
+	
+	public void insert(int key)
+
+	{
+		if (root == null)
+			root = new Node(key);
+		else
+			root = merge(root, new Node(key));
+
+	}
+
+	public int deleteMin()
+	  {
+	    if (root == null)
+	    {
+	      System.out.println("EMPTY HEAP !!!");
+	      return Integer.MAX_VALUE;
+	    }
+	    else
+	    {
+	      int x = root.data;
+	      if (root.right == null) // Also covers case of single node
+	        root = root.left;
+	      else
+	        root = merge(root.left, root.right);
+	      return x;
+	    }
+
+	  }
+}

@@ -1,25 +1,27 @@
-
-public class PartB<Anytype> 
+import java.math.*;
+public class PartB
 {
+	Node root;
 	class Node
 	{
-		Anytype data;
+		int data;
 		Node left;
 		Node right;
 		
 		public Node()
 		{
-			data = null;
+			data = 0;
 		}
 		
-		public Node(Anytype value)
+		public Node(int value)
 		{
 			data = value;
 		}
 	}
-	
-	static Node merge(Node u, Node v)
+
+	public static Node merge(Node u, Node v)
 	{
+		// swapping data from u to v
 		Node dummy;
 		dummy = u;
 		u = v;
@@ -27,6 +29,7 @@ public class PartB<Anytype>
 		
 		if (u.data > v.data)
 		{
+	    	// swapping left and right for bigger node, which should be placed on the right
 			dummy = u;
 			u = v;
 		    v = dummy;
@@ -36,19 +39,50 @@ public class PartB<Anytype>
 		{
 			  u.right = v;
 		}
-	    else // Merge recursively
+	    else // Merging recursively
 		      u.right = merge(u.right, v);
 		// Conditionally swap children of u
-	    if (u.left == null || u.right.npl > u.left.npl)
+	    if (u.left == null || u.right.data > u.left.data)
 	    {
+	    	// swapping right and left for smaller node, which should be placed on the left
 	      dummy = u.right; 
 	      u.right = u.left;
 	      u.left = dummy; 
 	    }
-	    // Update npl values
+	    // Update data values
 	    if (u.right == null)
-	      u.npl = 0;
+	      u.data = 0;
 	    else
-	      u.npl = min(u.left.npl, u.right.npl) + 1;
+	      u.data = Math.min(u.left.data, u.right.data);
+	    return u;
 	}
+		
+	
+	public void insert(int key)
+	{
+		if (root == null)
+			root = new Node(key);
+		else
+			root = merge(root, new Node(key));
+
+	}
+
+	public int deleteMin()
+	  {
+	    if (root == null)
+	    {
+	      System.out.println("EMPTY HEAP !!!");
+	      return Integer.MAX_VALUE;
+	    }
+	    else
+	    {
+	      int x = root.data;
+	      if (root.right == null) // Also covers case of single node
+	        root = root.left;
+	      else
+	        root = merge(root.left, root.right);
+	      return x;
+	    }
+
+	  }
 }
