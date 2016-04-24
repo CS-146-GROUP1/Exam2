@@ -21,6 +21,7 @@ public class Dictionary {
 
     }
 
+    
     private int hash(String key) {
 
         return (key.hashCode() & 0x7fffffff) % M;
@@ -77,7 +78,7 @@ public class Dictionary {
 
             //pick a random bucket, go out a random number
 
-            Node n = array[(int)Math.random()*M].first;
+        	Bucket.Node n = array[(int)Math.random()*M].first;
 
             int rand = (int)Math.random()*(int)Math.sqrt(num);
 

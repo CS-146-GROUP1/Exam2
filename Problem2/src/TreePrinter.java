@@ -9,7 +9,7 @@ import java.math.*;
 /**
  * This is for Problem #1 on Homework 2
  */
-public class TreePrinter<Anytype> extends PartB
+public class TreePrinter<Anytype> extends LeftHeap
 {	
 	/**
 	 * prints whole tree

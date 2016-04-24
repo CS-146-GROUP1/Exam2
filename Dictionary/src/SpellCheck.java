@@ -4,7 +4,7 @@ public class SpellCheck {
 
     private Dictionary dict;
 
-    final static String filePath = "d:/desktop/words.txt";
+    final static String filePath = "C:/Users/Adish/Desktop/words.txt";
 
     final static char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
@@ -28,7 +28,7 @@ public class SpellCheck {
 
             System.out.print("\n-------Enter a word: ");
 
-            input = scan.nextLine();
+            input = scan.nextLine(); // scanner proceeds on
 
             if (input.equals("")) {
 
@@ -42,7 +42,7 @@ public class SpellCheck {
 
           } else {
 
-                System.out.print("is not spelled correctly, ");
+                System.out.print("\n" + input + " is not spelled correctly, ");
 
                 System.out.println(printSuggestions(input));
 
@@ -161,7 +161,6 @@ public class SpellCheck {
     private ArrayList<String> charsSwapped(String input) {
 
         ArrayList<String> toReturn = new ArrayList<>();
-
         for (int i = 0; i < input.length() - 1; i++) {
 
             String working = input.substring(0, i);// System.out.println("    0:" + working);
@@ -184,10 +183,34 @@ public class SpellCheck {
 
     }
 
-    public static void main(String[] args) {
-
+    public void addCommonWords()
+    {
+    	dict.add("this");
+    	dict.add("that");
+    	dict.add("what");
+    	dict.add("would");
+    	dict.add("as");
+    	dict.add("how");
+    	dict.add("why");
+    	dict.add("suddenly");
+    	dict.add("mama");
+    	dict.add("papa");
+    	dict.add("hello");
+    	dict.add("world");
+    	dict.add("pie");
+    	dict.add("amazing");
+    	dict.add("tired");
+    	dict.add("amazing");
+    	dict.add("bored");
+    	dict.add("stuff");
+    	dict.add("life");
+    	dict.add("other");
+    }
+    
+    public static void main(String[] args) 
+    {
         SpellCheck sc = new SpellCheck();
-
+        sc.addCommonWords();
         sc.run();
 
     }
